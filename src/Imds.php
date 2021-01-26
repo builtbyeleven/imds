@@ -42,6 +42,10 @@ class Imds
         return $this->getContent();
     }
 
+    public function blockDeviceMapping()
+    {
+    }
+
     public function hostname()
     {
         $this->params = '/meta-data/hostname';
