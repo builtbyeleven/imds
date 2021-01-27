@@ -2,7 +2,11 @@
 
 namespace BuiltByEleven\Imds;
 
+use ErrorException;
+use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ConnectException;
 
 class Imds
 {
@@ -20,7 +24,19 @@ class Imds
 
     private function getContent()
     {
-        $this->response = $this->client->get($this->url . $this->params, ['connect_timeout' => 2]);
+        try {
+            $this->response = $this->client->get(
+                $this->url . $this->params,
+                [
+                    'connect_timeout' => 2
+                ]
+            );
+        } catch (ClientException $exception) {
+            throw new ErrorException('client exception');
+        } catch (ConnectException $connectException) {
+            throw new Exception('Cannot connect to server');
+        }
+
         return $this->response->getBody()->getContents();
     }
 

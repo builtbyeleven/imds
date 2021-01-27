@@ -14,7 +14,7 @@ class ImdsTest extends TestCase
     public function setUp(): void
     {
         $mock = new MockHandler([
-            new Response(200, [], 'i-12345')
+            new Response(200, [], 'i-12345678'),
         ]);
 
         $handlerStack = HandlerStack::create($mock);
@@ -25,7 +25,6 @@ class ImdsTest extends TestCase
 
     public function testAmiId()
     {
-        var_dump($this->imds->amiId());
-        $this->assertTrue(true);
+        $this->assertEquals('i-12345678', $this->imds->amiId());
     }
 }
