@@ -40,7 +40,7 @@ class Imds
         return $this->response->getBody()->getContents();
     }
 
-    public function amiId()
+    public function amiId(): string
     {
         $this->params = '/meta-data/ami-id';
         return $this->getContent();

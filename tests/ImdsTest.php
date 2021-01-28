@@ -27,4 +27,9 @@ class ImdsTest extends TestCase
     {
         $this->assertEquals('i-12345678', $this->imds->amiId());
     }
+
+    public function testAmiLaunchIndex()
+    {
+        $this->assertEquals('i-12345678', $this->imds->amiLaunchIndex());
+    }
 }
