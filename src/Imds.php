@@ -16,9 +16,11 @@ class Imds
     private $response;
     private $params;
 
-    public function __construct(Client $client, $url = 'http://169.254.169.254')
+    public function __construct($url = 'http://169.254.169.254')
     {
-        $this->client = $client;
+        $this->client = new Client([
+            'connect_timeout' => 2,
+        ]);
         $this->url = $url . '/latest';
     }
 
@@ -26,10 +28,7 @@ class Imds
     {
         try {
             $this->response = $this->client->get(
-                $this->url . $this->params,
-                [
-                    'connect_timeout' => 2
-                ]
+                $this->url . $this->params
             );
         } catch (ClientException $exception) {
             throw new ErrorException('client exception');
